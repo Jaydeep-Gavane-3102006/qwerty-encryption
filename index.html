@@ -1,0 +1,142 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QWERTY Encryption Tool</title>
+  <style>
+    * { box-sizing: border-box; }body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #000;
+  color: #FFD700;
+  padding: 16px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: clamp(20px, 5vw, 32px);
+}
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.box {
+  border: 2px solid #FFD700;
+  padding: 16px;
+  border-radius: 12px;
+  background: #111;
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+}
+
+h2 {
+  margin: 0 0 10px 0;
+  font-size: clamp(16px, 4vw, 22px);
+}
+
+textarea {
+  width: 100%;
+  min-height: 120px;
+  margin: 8px 0;
+  padding: 10px;
+  border-radius: 6px;
+  resize: vertical;
+  background: #000;
+  color: #FFD700;
+  border: 1px solid #FFD700;
+  font-size: 14px;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  margin: 6px 0;
+  border-radius: 6px;
+  background: #000;
+  color: #FFD700;
+  border: 2px solid #FFD700;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.25s ease;
+  font-size: 14px;
+}
+
+button:hover {
+  background: #FFD700;
+  color: #000;
+}
+
+/* Small phones */
+@media (max-width: 480px) {
+  body { padding: 10px; }
+  textarea { min-height: 100px; }
+}
+
+/* Tablets */
+@media (min-width: 768px) {
+  textarea { min-height: 140px; }
+}
+
+  </style>
+</head>
+<body>
+  <h1>QWERTY Encryption & Decryption</h1>  <div class="container">
+    <!-- Encryption Section -->
+    <div class="box">
+      <h2>Encrypt</h2>
+      <textarea id="plainText" placeholder="Enter plaintext..."></textarea>
+      <button onclick="encrypt()">Encrypt</button>
+      <textarea id="cipherText" placeholder="Encrypted text..." readonly></textarea>
+    </div><!-- Decryption Section -->
+<div class="box">
+  <h2>Decrypt</h2>
+  <textarea id="cipherInput" placeholder="Enter encrypted text..."></textarea>
+  <button onclick="decrypt()">Decrypt</button>
+  <textarea id="plainOutput" placeholder="Decrypted text..." readonly></textarea>
+</div>
+
+  </div>  <script>
+    const alphabet = "abcdefghijklmnopqrstuvwxyz";
+    const qwerty = "qwertyuiopasdfghjklzxcvbnm";
+
+    function encrypt() {
+      let text = document.getElementById("plainText").value.toLowerCase();
+      let result = "";
+
+      for (let char of text) {
+        let index = alphabet.indexOf(char);
+        if (index !== -1) {
+          result += qwerty[index];
+        } else {
+          result += char;
+        }
+      }
+
+      document.getElementById("cipherText").value = result;
+    }
+
+    function decrypt() {
+      let text = document.getElementById("cipherInput").value.toLowerCase();
+      let result = "";
+
+      for (let char of text) {
+        let index = qwerty.indexOf(char);
+        if (index !== -1) {
+          result += alphabet[index];
+        } else {
+          result += char;
+        }
+      }
+
+      document.getElementById("plainOutput").value = result;
+    }
+  </script></body>
+  </html>
